@@ -11,6 +11,8 @@
  */
 
 #include "main.h"
+#include "claw.h"
+#include "arm.h"
 
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -31,6 +33,19 @@
  */
 void operatorControl() {
 	while (1) {
-		delay(20);
+		// Claw Controls
+		liftClaw(joystickGetAnalog(1, 4));
+		rotateClaw(joystickGetAnalog(1, 3));
+		closeClaw(joystickGetDigital(1, 8, JOY_DOWN));
+
+		// Body Controls
+		bodyRotate(joystickGetAnalog(1, 1));
+		elbowRotate(joystickGetAnalog(1, 2));
+		if(joystickGetDigital(1, 5, JOY_UP)){
+			shoulderRotate(50);
+		}
+		if(joystickGetDigital(1, 5, JOY_DOWN)){
+			shoulderRotate(-50);
+		}
 	}
 }
