@@ -34,18 +34,34 @@
 void operatorControl() {
 	while (1) {
 		// Claw Controls
-		liftClaw(joystickGetAnalog(1, 4));
-		rotateClaw(joystickGetAnalog(1, 3));
-		closeClaw(joystickGetDigital(1, 8, JOY_DOWN));
+		liftClaw(joystickGetAnalog(1, 3));
+		rotateClaw(joystickGetAnalog(1, 4));
+		if(joystickGetDigital(1, 6, JOY_UP)){
+			closeClaw(127);
+		}
+		else{
+			closeClaw(0);
+		}
+		if(joystickGetDigital(1, 6, JOY_DOWN)){
+			closeClaw(-127);
+		}
+		else{
+			closeClaw(0);
+		}
 
 		// Body Controls
 		bodyRotate(joystickGetAnalog(1, 1));
 		elbowRotate(joystickGetAnalog(1, 2));
 		if(joystickGetDigital(1, 5, JOY_UP)){
-			shoulderRotate(50);
+			shoulderRotate(75);
+		}else{
+			shoulderRotate(0);
 		}
 		if(joystickGetDigital(1, 5, JOY_DOWN)){
-			shoulderRotate(-50);
+			shoulderRotate(-75);
+		}
+		else{
+			shoulderRotate(0);
 		}
 	}
 }
